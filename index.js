@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const userRoute = require("./route/user");
 const companiesRoute = require("./route/companies");
 const app = express();
+const authUser = require("./middleware/auth");
 // Configuration
 app.use(express.json());
 // app.use(cors);
@@ -13,7 +14,7 @@ app.use(express.json());
 dotenv.config();
 // Routes
 app.use("/api/v1/user",userRoute);
-app.use("/api/v1/companies", companiesRoute);
+app.use("/api/v1/companies", authUser, companiesRoute);
 // Connect to Database
 const PORT = process.env.PORT || 5500;
 const start = async() => {
