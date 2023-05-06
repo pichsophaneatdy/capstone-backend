@@ -10,7 +10,7 @@ const authUser = require("./middleware/auth");
 // Configuration
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:5500'}));
-// app.use(helmet());
+app.use(helmet());
 dotenv.config();
 // Routes
 app.use("/api/v1/user",userRoute);
