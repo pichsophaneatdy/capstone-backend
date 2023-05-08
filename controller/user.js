@@ -5,16 +5,16 @@ const bcrypt = require("bcryptjs");
 // Endpoint for Register a new user
 const registerUser = async (req,res) => {
     try {
-        const {firstName, lastName, email, password, companies} = req.body;
+        const {firstName, lastName, email, password} = req.body;
         // Hashed the password before storing the database
         const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(password, salt)
-        const newUser = await User.create({firstName, lastName,email, password: hashedPassword, companies});
+        const hashedPassword = bcrypt.hashSync(password, salt);
+        const newUser = await User.create({firstName: firstName, lastName: lastName,email:email, password: hashedPassword});
         // Create a new token
         const token = jwt.sign({id: newUser._id}, process.env.JWT_KEY, {expiresIn: "2h"});
         res.status(201).json({status: "Successfully",token: token});
     } catch(error) {
-        res.status(400).json({status: "Unsucessfully", message:error});
+        res.status(400).json({status: "Unsucessfully", message:error.message});
     }
 } 
 // Endpoint for Login 

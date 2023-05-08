@@ -9,7 +9,7 @@ const app = express();
 const authUser = require("./middleware/auth");
 // Configuration
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:5500'}));
+app.use(cors());
 app.use(helmet());
 dotenv.config();
 // Routes
